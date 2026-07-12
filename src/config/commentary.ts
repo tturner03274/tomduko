@@ -1,0 +1,1 @@
+export const commentary={start:['Take your time. The grid will yield.','Fresh grid, clear head.'],mistake:['That digit has company.','Worth another look.'],complete:['Beautifully resolved.','That is how it is done.'],hint:['Start with the simplest certainty.']} as const;

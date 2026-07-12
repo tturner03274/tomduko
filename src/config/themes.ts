@@ -1,0 +1,1 @@
+export const themes=[{id:'ink',name:'Midnight Ink',description:'Deep teal and warm ivory'},{id:'paper',name:'Quiet Paper',description:'Soft stone and charcoal'},{id:'zen',name:'Forest Stillness',description:'Low contrast sage'},{id:'contrast',name:'High Contrast',description:'Maximum clarity'}] as const;export type ThemeId=typeof themes[number]['id'];

@@ -1,0 +1,5 @@
+import { validDigits,validateGivens } from './core';import type { Grid } from './types';
+export interface SolveResult { status:'solved'|'unsolvable'|'invalid'; solution:Grid|null; solutions:number; nodes:number }
+export function countSolutions(input:Grid,limit=2):SolveResult{if(!validateGivens(input))return{status:'invalid',solution:null,solutions:0,nodes:0};const board=[...input];let count=0,first:Grid|null=null,nodes=0;const walk=()=>{if(count>=limit)return;nodes++;let target=-1,choices:ReturnType<typeof validDigits>=[];for(let i=0;i<81;i++)if(!board[i]){const c=validDigits(board,i);if(!c.length)return;if(target<0||c.length<choices.length){target=i;choices=c;if(c.length===1)break;}}if(target<0){count++;first??=Object.freeze([...board]);return;}for(const digit of choices){board[target]=digit;walk();board[target]=0;if(count>=limit)return;}};walk();return{status:count?'solved':'unsolvable',solution:first,solutions:count,nodes}}
+export const solve=(grid:Grid)=>countSolutions(grid,1);
+export const isUnique=(grid:Grid)=>countSolutions(grid,2).solutions===1;

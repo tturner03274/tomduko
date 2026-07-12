@@ -1,0 +1,7 @@
+import type { Puzzle } from './types';
+export const puzzles:readonly Puzzle[]=[
+{id:'easy-01',puzzle:'530070000600195000098000060800060003400803001700020006060000280000419005000080079',solution:'534678912672195348198342567859761423426853791713924856961537284287419635345286179',difficulty:'easy',clueCount:30,techniques:['naked-single','hidden-single'],seed:'curated-easy-01'},
+{id:'medium-01',puzzle:'000260701680070090190004500820100040004602900050003028009300074040050036703018000',solution:'435269781682571493197834562826195347374682915951743628519326874248957136763418259',difficulty:'medium',clueCount:36,techniques:['naked-single','hidden-single','locked-candidate'],seed:'curated-medium-01'},
+{id:'hard-01',puzzle:'000000907000420180000705026100904000050000040000507009920108000034059000507000000',solution:'462831957795426183381795426173984265659312748248567319926178534834259671517643892',difficulty:'hard',clueCount:28,techniques:['naked-single','hidden-single','locked-candidate','naked-pair'],seed:'curated-hard-01'},
+{id:'expert-01',puzzle:'005300000800000020070010500400005300010070006003200080060500009004000030000009700',solution:'145327698839654127672918543496185372218473956753296481367542819984761235521839764',difficulty:'expert',clueCount:23,techniques:['naked-single','hidden-single','locked-candidate','naked-pair'],seed:'curated-expert-01'}];
+export function puzzleForDate(date:string){let hash=2166136261;for(const c of date)hash=Math.imul(hash^c.charCodeAt(0),16777619);return puzzles[Math.abs(hash)%puzzles.length]}
