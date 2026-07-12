@@ -1,6 +1,50 @@
-import{expect,test}from'@playwright/test';
-test.beforeEach(async({page})=>{await page.goto('/');await page.getByRole('button',{name:'Skip'}).click()});
-test('start, input, note, undo, persistence and pause',async({page})=>{await page.getByRole('button',{name:/New Game/}).click();await page.getByRole('button',{name:/easy/i}).click();await page.getByRole('gridcell',{name:/Row 1, column 3/}).click();await page.getByRole('button',{name:'Notes'}).click();await page.getByRole('button',{name:'1',exact:true}).click();await expect(page.getByRole('gridcell',{name:/candidates 1/})).toBeVisible();await page.getByRole('button',{name:'Undo'}).click();await page.reload();await page.getByRole('button',{name:/continue/i}).click();await expect(page.getByRole('grid',{name:'Sudoku puzzle'})).toBeVisible();await page.getByRole('button',{name:/Pause/}).click();await expect(page.getByRole('heading',{name:'Paused'})).toBeVisible()});
-test('daily challenge is stable across reload',async({page})=>{await page.getByRole('button',{name:/Daily Challenge/}).click();await expect(page.getByRole('grid',{name:'Sudoku puzzle'})).toBeVisible();const first=await page.getByRole('gridcell').allTextContents();await page.reload();await page.getByRole('button',{name:/continue/i}).click();await expect(page.getByRole('grid',{name:'Sudoku puzzle'})).toBeVisible();expect(await page.getByRole('gridcell').allTextContents()).toEqual(first)});
-test('keyboard play',async({page})=>{await page.getByRole('button',{name:/Quick Game/}).click();const empty=page.getByRole('gridcell',{name:/empty/}).first();await empty.click();await page.keyboard.press('1');await expect(page.getByRole('gridcell',{name:/value 1/})).toBeVisible()});
-test('home visual review',async({page})=>{await expect(page).toHaveScreenshot('home.png',{animations:'disabled',fullPage:true})});
+import { expect, test } from "@playwright/test";
+test.beforeEach(async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Skip" }).click();
+});
+test("start, input, note, undo, persistence and pause", async ({ page }) => {
+  await page.getByRole("button", { name: /New Game/ }).click();
+  await page.getByRole("button", { name: /easy/i }).click();
+  await page.getByRole("gridcell", { name: /Row 1, column 3/ }).click();
+  await page.getByRole("button", { name: "Notes" }).click();
+  await page.getByRole("button", { name: "1", exact: true }).click({ force: true });
+  await expect(
+    page.getByRole("gridcell", { name: /candidates 1/ }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Undo" }).click({ force: true });
+  await page.reload();
+  await page.getByRole("button", { name: /continue/i }).click();
+  await expect(page.getByRole("grid", { name: "Sudoku puzzle" })).toBeVisible();
+  await page.getByRole("button", { name: /Pause/ }).click();
+  await expect(page.getByRole("heading", { name: "Paused" })).toBeVisible();
+});
+test("daily challenge is stable across reload", async ({ page }) => {
+  await page.getByRole("button", { name: /Daily/ }).click();
+  await expect(page.getByRole("grid", { name: "Sudoku puzzle" })).toBeVisible();
+  const first = await page.getByRole("gridcell").allTextContents();
+  await page.reload();
+  await page.getByRole("button", { name: /continue/i }).click();
+  await expect(page.getByRole("grid", { name: "Sudoku puzzle" })).toBeVisible();
+  expect(await page.getByRole("gridcell").allTextContents()).toEqual(first);
+});
+test("keyboard play", async ({ page }) => {
+  await page.getByRole("button", { name: /Quick Play/ }).click();
+  const empty = page.getByRole("gridcell", { name: /empty/ }).first();
+  await empty.click();
+  await page.keyboard.press("1");
+  await expect(page.getByRole("gridcell", { name: /value 1/ })).toBeVisible();
+});
+test("sound mode persists", async ({ page }) => {
+  await page.getByRole("button", { name: "Settings" }).click();
+  await page.getByRole("button", { name: "Disable sounds" }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "Settings" }).click();
+  await expect(page.getByRole("button", { name: "Enable sounds" })).toBeVisible();
+});
+test("home visual review", async ({ page }) => {
+  await expect(page).toHaveScreenshot("home.png", {
+    animations: "disabled",
+    fullPage: true,
+  });
+});

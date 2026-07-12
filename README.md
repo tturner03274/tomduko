@@ -31,4 +31,8 @@ Classic, Quick, Daily, Zen and Time Attack are playable. Easy–Expert registry 
 
 Daily Challenge hashes the local ISO calendar date into the verified registry. The same date therefore selects the same bundled puzzle with no network. Completion IDs and daily dates are de-duplicated.
 
+Every non-daily new game rotates through Sudoku-preserving digit, band, stack and orientation transformations, so repeated difficulty selections do not repeat the visible board. Tomduko IQ is a private performance score based on difficulty, time, mistakes and hints; Home shows the rolling five-game rating and personal best while Statistics keeps the latest 100 results locally. It is not a clinical IQ assessment.
+
+The optional Sound Lounge synthesises tile, note, error, hint, pause and victory cues locally through Web Audio. Nothing is downloaded or streamed. Sound and volume controls live in Settings.
+
 See the files in `docs/` for engine, persistence, PWA, deployment, privacy, QA and known limitations.
