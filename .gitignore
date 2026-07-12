@@ -6,3 +6,5 @@ visual-review
 *.tsbuildinfo
 .env*
 !.env.example
+
+.vercel
